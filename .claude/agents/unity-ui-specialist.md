@@ -208,6 +208,24 @@ Before writing any code:
 - Creating/destroying UI elements instead of pooling/virtualizing
 - Hardcoded strings instead of localization keys
 
+## Version Awareness
+
+**This project is pinned to Unity 6000.3.13f1 (Unity 6.3 LTS).**
+The LLM's training data may not cover this version accurately.
+
+Before suggesting any UI Toolkit or UGUI API:
+1. Read `docs/engine-reference/unity/VERSION.md` — confirms pinned version and risk level
+2. Check `docs/engine-reference/unity/deprecated-apis.md` — especially UI Toolkit section
+3. Check `docs/engine-reference/unity/breaking-changes.md` — UI Toolkit had significant API changes
+
+**High-priority UI checks for this version:**
+- `VisualElement.transform` deprecated in 6.2 → use `element.style.translate/rotate/scale` (write) and `element.resolvedStyle.*` (read)
+- `ExecuteDefaultAction()` deprecated → use `HandleEventBubbleUp()`
+- `ExecuteDefaultActionAtTarget()` deprecated → use `HandleEventTrickleDown()`
+- `PreventDefault()` deprecated → use `StopPropagation()`
+- `UxmlTraits` + `UxmlFactory` pattern replaced by `[UxmlElement]` + `[UxmlAttribute]` attributes
+- All touch input must use new Input System (EnhancedTouchSupport.Enable() for multi-touch)
+
 ## Coordination
 - Work with **unity-specialist** for overall Unity architecture
 - Work with **ui-programmer** for general UI implementation patterns

@@ -2,10 +2,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Engine Version** | Unity 6.3 LTS |
-| **Release Date** | December 2025 |
-| **Project Pinned** | 2026-02-13 |
-| **Last Docs Verified** | 2026-02-13 |
+| **Engine Version** | Unity 6000.3.13f1 (Unity 6.3 LTS) |
+| **Release Date** | Early 2026 |
+| **Project Pinned** | 2026-04-28 |
+| **Last Docs Verified** | 2026-04-28 |
 | **LLM Knowledge Cutoff** | May 2025 |
 
 ## Knowledge Gap Warning

@@ -1,9 +1,52 @@
 # Unity 6.3 LTS — Breaking Changes
 
-**Last verified:** 2026-02-13
+**Last verified:** 2026-04-28
 
 This document tracks breaking API changes and behavioral differences between Unity 2022 LTS
 (likely in model training) and Unity 6.3 LTS (current version). Organized by risk level.
+
+## Unity 6.0 Precise API Changes (Verified 2026-04-28)
+
+These are confirmed from the official Unity 6.0 upgrade guide:
+
+**Object.Find* (MUST migrate):**
+- `Object.FindObjectsOfType<T>()` → `Object.FindObjectsByType<T>(FindObjectsSortMode.None)`
+- `Object.FindObjectOfType<T>()` → `Object.FindFirstObjectByType<T>()` or `Object.FindAnyObjectByType<T>()`
+
+**Removed graphics formats (compile error):**
+- `GraphicsFormat.DepthAuto`, `GraphicsFormat.ShadowAuto`, `GraphicsFormat.VideoAuto` now cause compile errors.
+
+**UI Toolkit event handling:**
+- `ExecuteDefaultAction()` → `HandleEventBubbleUp()`
+- `ExecuteDefaultActionAtTarget()` → `HandleEventTrickleDown()`
+- `PreventDefault()` → `StopPropagation()`
+- `AtTarget` dispatch phase removed; use `TrickleDown` or `BubbleUp`
+- `UxmlTraits`/`UxmlFactory` pattern replaced by `[UxmlElement]`/`[UxmlAttribute]` attributes
+
+**Android plugin bridge:**
+- `UnityPlayer` no longer extends `FrameLayout`. Use `getFrameLayout()`. Base classes: `UnityPlayerForActivityOrService` or `UnityPlayerForGameActivity`.
+- Required JDK: 17. Android Gradle Plugin: 8.7.2.
+
+**Lighting:**
+- Enlighten Baked GI removed; Auto Generate setting removed from Lighting window.
+- `LightingSettings.filteringGaussRadiusAO` (int) → `filteringGaussianRadiusAO` (float).
+
+## Unity 6.2 Precise API Changes (Verified 2026-04-28)
+
+**URP SetupRenderPasses officially deprecated:**
+- `ScriptableRendererFeature.SetupRenderPasses()` deprecated. Migrate to render graph + `AddRenderPasses`.
+- AfterRendering injection point now always runs after final blit. Change to `AfterRenderingPostProcessing` to preserve old behavior.
+
+**UI Toolkit:**
+- `VisualElement.transform` deprecated.
+  - Write: `element.style.translate`, `element.style.rotate`, `element.style.scale`
+  - Read: `element.resolvedStyle.translate`, `element.resolvedStyle.rotate`, `element.resolvedStyle.scale`
+
+**Render pipeline attributes:**
+- `CustomEditorForRenderPipelineAttribute` → `[CustomEditor]` + `[SupportedOnRenderPipeline]`
+- `VolumeComponentMenuForRenderPipelineAttribute` → `[VolumeComponentMenu]` + `[SupportedOnRenderPipeline]`
+
+---
 
 ## HIGH RISK — Will Break Existing Code
 

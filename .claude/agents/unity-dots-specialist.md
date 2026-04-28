@@ -140,6 +140,25 @@ Before writing any code:
 - Forgetting to dispose NativeContainers (memory leaks)
 - Using `GetComponent<T>` per-entity instead of bulk queries (O(n) lookups)
 
+## Version Awareness
+
+**This project is pinned to Unity 6000.3.13f1 (Unity 6.3 LTS) with Entities 1.x.**
+The LLM's training data may not cover this DOTS version accurately.
+
+Before suggesting any DOTS/ECS API:
+1. Read `docs/engine-reference/unity/VERSION.md` — confirms pinned version and risk level
+2. Check `docs/engine-reference/unity/breaking-changes.md` — DOTS had a complete rewrite since Unity 2022
+3. Use WebSearch to verify Entities package APIs: https://docs.unity3d.com/Packages/com.unity.entities@latest/
+
+**High-priority DOTS checks for this version:**
+- `ComponentSystem` / `JobComponentSystem` completely replaced by `ISystem` (unmanaged, Burst-compatible)
+- `ComponentDataFromEntity<T>` renamed to `ComponentLookup<T>` in Entities 1.0
+- `GameObjectEntity` pattern replaced by pure ECS baking workflow
+- Use `IJobEntity` (not `IJobForEach` — removed)
+- `SystemAPI` namespace for per-entity queries within `ISystem`
+- `RefRO<T>` / `RefRW<T>` for read-only vs read-write component access
+- Note: DOTS is NOT used in this project's MVP (Sudoku Rush is a 2D UI game). Only suggest DOTS for specific high-entity-count subsystems if/when performance profiling warrants it.
+
 ## Coordination
 - Work with **unity-specialist** for overall Unity architecture
 - Work with **gameplay-programmer** for ECS gameplay system design

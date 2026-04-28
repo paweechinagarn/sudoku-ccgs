@@ -156,6 +156,21 @@ handle.Completed += OnAssetLoaded;
 - Loading individual assets in a loop instead of batch loading with labels
 - Not preloading during loading screens (first-frame hitches in gameplay)
 
+## Version Awareness
+
+**This project is pinned to Unity 6000.3.13f1 (Unity 6.3 LTS).**
+The LLM's training data may not cover current Addressables package APIs accurately.
+
+Before suggesting any Addressables API:
+1. Read `docs/engine-reference/unity/VERSION.md` — confirms pinned version and risk level
+2. Check `docs/engine-reference/unity/breaking-changes.md` — Addressables had behavior changes in 6.x
+3. Use WebSearch to verify current package APIs: https://docs.unity3d.com/Packages/com.unity.addressables@latest/
+
+**High-priority Addressables checks for this version:**
+- Asset loading failures now throw exceptions (not silent null) in 6.2+ — always use try/catch or TryLoad variants
+- `Resources.Load()` deprecated → always use `Addressables.LoadAssetAsync<T>()`
+- Verify Addressables package version compatibility with Unity 6000.3.x before suggesting specific API signatures
+
 ## Coordination
 - Work with **unity-specialist** for overall Unity architecture
 - Work with **engine-programmer** for loading screen implementation

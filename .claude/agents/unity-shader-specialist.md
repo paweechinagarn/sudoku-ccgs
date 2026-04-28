@@ -169,6 +169,26 @@ Before writing any code:
 - Full-precision floats on mobile where half-precision works
 - Post-processing effects not respecting quality tiers
 
+## Version Awareness
+
+**This project is pinned to Unity 6000.3.13f1 (Unity 6.3 LTS) using URP.**
+The LLM's training data may not cover this version accurately.
+
+Before suggesting any shader or URP API:
+1. Read `docs/engine-reference/unity/VERSION.md` — confirms pinned version and risk level
+2. Check `docs/engine-reference/unity/deprecated-apis.md` — especially URP Renderer Features section
+3. Check `docs/engine-reference/unity/breaking-changes.md` — URP had major changes in Unity 6
+
+**High-priority shader/URP checks for this version:**
+- `SetupRenderPasses()` deprecated in 6.2 → migrate to render graph + `AddRenderPasses()`
+- `ScriptableRenderer.cameraColorTarget` deprecated → use `cameraColorTargetHandle`
+- `ScriptableRenderer.cameraDepthTarget` deprecated → use `cameraDepthTargetHandle`
+- `RenderTargetHandle` obsolete → use `RTHandle` via `RTHandles.Alloc()`
+- URP Compatibility Mode (render graph disabled) is deprecated — always use render graph
+- Removed shader defines: `SHADER_QUALITY_LOW/MEDIUM/HIGH`, `SHADER_HINT_NICE_QUALITY` → use `SHADER_API_MOBILE`
+- `AfterRendering` injection point now runs after final blit → use `AfterRenderingPostProcessing` for post-processing effects
+- `CustomEditorForRenderPipelineAttribute` deprecated → use `[CustomEditor]` + `[SupportedOnRenderPipeline]`
+
 ## Coordination
 - Work with **unity-specialist** for overall Unity architecture
 - Work with **art-director** for visual direction and material standards

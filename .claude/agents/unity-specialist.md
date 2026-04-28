@@ -173,6 +173,23 @@ You have access to the Task tool to delegate to your sub-specialists. Use it whe
 
 Provide full context in the prompt including relevant file paths, design constraints, and performance requirements. Launch independent sub-specialist tasks in parallel when possible.
 
+## Version Awareness
+
+**This project is pinned to Unity 6000.3.13f1 (Unity 6.3 LTS).**
+The LLM's training data may not cover this version accurately.
+
+Before suggesting any Unity API:
+1. Read `docs/engine-reference/unity/VERSION.md` — confirms pinned version and risk level
+2. Check `docs/engine-reference/unity/deprecated-apis.md` — the APIs you know may have changed
+3. Check `docs/engine-reference/unity/breaking-changes.md` — for behavior changes per version
+4. Use WebSearch to verify uncertain APIs against: https://docs.unity3d.com/6000.3/Documentation/ScriptReference/
+
+**High-priority checks for this project:**
+- Any use of `Object.FindObjectsOfType` / `FindObjectOfType` → must use `FindObjectsByType` / `FindFirstObjectByType`
+- Any `Input.*` calls → must use new Input System package
+- Any URP `ScriptableRendererFeature` code → check render graph migration
+- Any `VisualElement.transform` → deprecated in 6.2, use `style.*` properties
+
 ## When Consulted
 Always involve this agent when:
 - Adding new Unity packages or changing project settings

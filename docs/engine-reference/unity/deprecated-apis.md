@@ -1,13 +1,51 @@
 # Unity 6.3 LTS — Deprecated APIs
 
-**Last verified:** 2026-02-13
+**Last verified:** 2026-04-28
 
 Quick lookup table for deprecated APIs and their replacements.
 Format: **Don't use X** → **Use Y instead**
 
 ---
 
-## Input
+## Core API (Verified from official Unity 6.0 upgrade guide)
+
+| Don't Use | Use Instead | Notes |
+|-----------|-------------|-------|
+| `Object.FindObjectsOfType<T>()` | `Object.FindObjectsByType<T>(FindObjectsSortMode.None)` | Pass sort mode; `.None` is fastest |
+| `Object.FindObjectOfType<T>()` | `Object.FindFirstObjectByType<T>()` or `Object.FindAnyObjectByType<T>()` | `FindAny` fastest when order irrelevant |
+| `LightingSettings.filteringGaussRadiusAO` (int) | `LightingSettings.filteringGaussianRadiusAO` (float) | Also Direct/Indirect variants |
+| `GraphicsFormat.DepthAuto` | `GraphicsFormat.None` | Compile error in Unity 6 |
+| `GraphicsFormat.ShadowAuto` | `GraphicsFormat.None` | Compile error in Unity 6 |
+| `GraphicsFormat.VideoAuto` | `GraphicsFormat.None` | Compile error in Unity 6 |
+
+## URP Renderer Features (Verified from official Unity 6 URP guide)
+
+| Don't Use | Use Instead | Notes |
+|-----------|-------------|-------|
+| `ScriptableRenderer.cameraColorTarget` | `cameraColorTargetHandle` | Returns RTHandle |
+| `ScriptableRenderer.cameraDepthTarget` | `cameraDepthTargetHandle` | Returns RTHandle |
+| `RenderTargetHandle` struct | `RTHandle` via `RTHandles.Alloc()` | Use `RenderingUtils.ReAllocateIfNeeded()` for temporaries |
+| `ScriptableRendererFeature.SetupRenderPasses()` | Render graph + `AddRenderPasses()` | Deprecated in 6.2 |
+| URP Compatibility Mode (render graph disabled) | Render graph system | Deprecated in 6.0; will be removed |
+| `SHADER_QUALITY_LOW/MEDIUM/HIGH` shader defines | `SHADER_API_MOBILE` or `SHADER_API_GLES` | Removed in URP 17 |
+| AfterRendering injection point for post-processing | `AfterRenderingPostProcessing` | AfterRendering now runs after final blit (changed in 6.2) |
+
+## UI Toolkit Event Handling (Verified)
+
+| Don't Use | Use Instead | Notes |
+|-----------|-------------|-------|
+| `ExecuteDefaultAction()` | `HandleEventBubbleUp()` | Renamed in Unity 6 |
+| `ExecuteDefaultActionAtTarget()` | `HandleEventTrickleDown()` | Renamed in Unity 6 |
+| `PreventDefault()` | `StopPropagation()` | Renamed in Unity 6 |
+| `VisualElement.transform` (write) | `element.style.translate / .rotate / .scale` | Deprecated in Unity 6.2 |
+| `VisualElement.transform` (read) | `element.resolvedStyle.translate / .rotate / .scale` | Deprecated in Unity 6.2 |
+| `UxmlTraits` + `UxmlFactory` | `[UxmlElement]` + `[UxmlAttribute]` attributes | New declarative UXML authoring |
+| `CustomEditorForRenderPipelineAttribute` | `[CustomEditor]` + `[SupportedOnRenderPipeline]` | Unified approach |
+| `VolumeComponentMenuForRenderPipelineAttribute` | `[VolumeComponentMenu]` + `[SupportedOnRenderPipeline]` | Unified approach |
+
+---
+
+## Input (Legacy Input System)
 
 | Deprecated | Replacement | Notes |
 |------------|-------------|-------|
