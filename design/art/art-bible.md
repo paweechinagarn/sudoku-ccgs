@@ -21,7 +21,7 @@ This is the governing contract for every visual decision in *Sudoku Rush*. The b
 
 The grid and all static cell states (empty, given digit, player-placed digit at rest) render in near-neutral values: dark backgrounds with low-saturation surfaces, white or off-white numerals at full opacity. Color — defined here as any hue with saturation above 20% — is permitted only when attached to an active game event. The moment the event resolves, the board returns to neutral.
 
-> `[IMAGE: Two side-by-side board states — (A) board at rest: monochrome grid, white digits on dark background, zero color; (B) same board mid-area-clear: gold burst radiating from completed box, electric blue technique banner, contrast between the two states illustrates the principle]`
+![Two side-by-side board states showing the neutral base and event-driven color contrast](generated/principle-neutral-base-vs-event-state.png)
 
 - **Pillar served**: "Every Hit Lands" — a neutral resting state guarantees that the moment color appears, the player's peripheral attention snaps to it. If the board already contains ambient color, the placement event competes rather than pops.
 - **Design test**: At any moment when no event is actively animating, take a screenshot. Desaturate it to greyscale. If any element is lost (i.e., depended on hue for meaning rather than value contrast), it has been colored incorrectly. Revert to a neutral value-based treatment.
@@ -35,7 +35,7 @@ The visual magnitude of a feedback event must directly encode its score value, n
 
 Players should be able to estimate their score delta from the size of the visual reaction before looking at the score counter.
 
-> `[IMAGE: Three-panel sequence showing scale progression — panel 1: small ripple from single digit placement; panel 2: medium burst filling one 3×3 box on row-clear; panel 3: full-screen particle cascade on simultaneous triple-clear. Each panel labeled with approximate score value to make the scale-value link explicit]`
+![Three-panel sequence showing score-scaled feedback progression from single placement to triple-clear cascade](generated/principle-scale-is-score-triptych.png)
 
 - **Pillar served**: "Depth is Earned, Not Taught" — if scale tracks score, players develop an intuitive feel for high-value moves purely through visual feedback. A triple-clear doesn't need a "+450" callout to feel enormous; the screen tells them.
 - **Design test**: If two events of different point value produce feedback of visually similar scale (burst radius within 20% of each other or duration within 100ms), the lower-value event must be reduced, not the higher-value event inflated.
@@ -44,7 +44,7 @@ Players should be able to estimate their score delta from the size of the visual
 
 When the engine recognizes a technique (Naked Single, Hidden Pair, X-Wing, etc.), a name banner appears at the horizontal center of the screen, positioned in the lower third so it does not occlude the active play area in the upper two-thirds. The banner is large enough to read in a single eye fixation at arm's length on a 6-inch screen (minimum 28sp equivalent, bold weight, 5–8 degrees italic). It persists for 1.5–2 seconds, then fades over 300ms. The font is the same display typeface used for the score — kinetic and confident, not decorative or soft.
 
-> `[IMAGE: Phone screen mockup (375pt width) showing a technique banner — "HIDDEN SINGLE" in bold italic at lower-third position — overlaid on an active board. Dotted overlay shows the 9 bottom-row cells are still visible and untouched by the banner. A second panel shows the same banner incorrectly centered mid-board, obscuring play cells, to illustrate what to avoid]`
+![Two-panel phone screen mockup showing correct and incorrect technique banner placement](generated/principle-technique-banner-placement.png)
 
 - **Pillar served**: "Flow Over Friction" — the banner is designed to be readable in peripheral vision during continued play. It must not demand that the player stop to read it. If a player can naturally ignore a banner and still feel its presence as a reward, it is correctly designed.
 - **Design test**: If a technique banner obscures a cell the player would need to tap within its 2-second window of visibility, the banner is too large or incorrectly positioned. Reposition to the lower third and verify against the nine bottom-row cells on the smallest supported screen (375pt width).
@@ -94,7 +94,7 @@ A player at peak combo who makes three errors should *feel* the environment cool
 
 **Visual cues**: No particle activity. Background static or near-static. All UI elements desaturated. Board, if visible, shown neutral — no highlights, no fills, no cell glow.
 
-> `[IMAGE: Reference target — a dark, low-saturation game menu with generous whitespace and near-zero particle activity. Contrast comes purely from value relationships. Think: a music venue before the house lights dim, or a blank sheet of staff paper.]`
+![Dark, low-saturation menu reference with generous whitespace and near-zero particle activity](generated/mood-menu-baseline.png)
 
 ---
 
@@ -115,7 +115,7 @@ A player at peak combo who makes three errors should *feel* the environment cool
 
 **Visual cues**: Combo meter shows a faint activation glow (absent on Home). Cell placements produce 1–3 particles max, resolving under 0.4 seconds. Background remains static.
 
-> `[IMAGE: Reference target — a sudoku board with a single recently filled cell showing a small white flash almost fully faded. The rest of the board is neutral. Combo meter shows a dim, first-notch activation. Particle count: near zero.]`
+![Low-combo gameplay reference showing one nearly-faded white cell flash and a dim first-notch combo meter](generated/mood-low-combo-board.png)
 
 ---
 
@@ -136,7 +136,7 @@ A player at peak combo who makes three errors should *feel* the environment cool
 
 **Visual cues**: Background warm fill visible (not present in low combo). Combo meter glow steady and bright. Particle trails have short linger (0.3–0.5 second decay). Absence of any background motion (warmth is ambient, not dynamic) distinguishes this from peak combo.
 
-> `[IMAGE: Reference target — board with 3–4 recently filled cells, each showing a faint decay trail. Background shows a warm but very low-saturation amber ambient. Combo meter at approximately half brightness. Board remains fully readable.]`
+![Mid-combo gameplay reference showing faint decay trails, soft amber ambient, and a half-bright combo meter](generated/mood-mid-combo-board.png)
 
 ---
 
